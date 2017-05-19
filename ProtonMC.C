@@ -4,23 +4,48 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 
+//==================================================================|
+//=====                 Defining Histograms                    =====|
+//==================================================================|
+TH1D *h1 = new TH1D("h1", "", 100, 0, 1);
+TH1D *h2 = new TH1D("h2", "", 100, 0, 1);
+TH1D *h3 = new TH1D("h3", "", 100, 0, 1);
+TH1D *h4 = new TH1D("h4", "", 100, 0, 1);
+//==================================================================|
+
 void ProtonMC::Loop()
 {
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
    Long64_t nbytes = 0, nb = 0;
 
+   //---------------------------------------------------------------|
+   //-----                 Defining Counters                   -----|
+   //---------------------------------------------------------------|
    int nEntries = 50000;
    int nProtonInelastic = 0;
    int nEventsHadronicProton = 0;
    int nEventsProtonInelastic = 0;
+   //---------------------------------------------------------------|
+   
+   //---------------------------------------------------------------|
+   //-----         Defining the Dimensions of LArIAT           -----|
+   //---------------------------------------------------------------|
+   double x0 = 0; //This is in centimeters and is left x coordinate
+   double xF = 47; //This is in centimeters and is right x coordinate
+   double y0 = -20; //This is in centimeters and is left y coordinate
+   double yF = 20; //This is in centimeters and is right y coordinate
+   double z0 = 0; //This is in centimeters and is left z coordinate
+   double zF = 90; //This is in centimeters and is right z coordinate
+   //---------------------------------------------------------------|
 
-   //for (Long64_t jentry=0; jentry<nentries; jentry++) {
+   //###############################################################|
+   //#####                   Event Loop                        #####|
+   //###############################################################|
    for (Long64_t jentry=0; jentry<nEntries; jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      // if (Cut(ientry) < 0) continue;
 
       int nParticlesInEvent = geant_list_size;
       int process = Process[jentry];
@@ -28,6 +53,9 @@ void ProtonMC::Loop()
          nProtonInelastic++;   
       }
 
+      //############################################################|
+      //#####                  Particle Loop                   #####|
+      //############################################################|
       for (int iPart=0; iPart<nParticlesInEvent; iPart++) {
          int IsPrimary = process_primary[iPart];
          int PDG = pdg[iPart];
@@ -40,8 +68,10 @@ void ProtonMC::Loop()
          }
          
       }
+      //############################################################|
 
    }
+   //###############################################################|
    
    int nTotalProton = nEventsHadronicProton + nEventsProtonInelastic;
    std::cout<<"|---------------------------------------------------------------------------|"<<std::endl;
