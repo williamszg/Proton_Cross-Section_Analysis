@@ -40,7 +40,7 @@ void ProtonMC::Loop()
    //---------------------------------------------------------------|
 
    //###############################################################|
-   //#####                   Event Loop                        #####|
+   //#####                    Event Loop                       #####|
    //###############################################################|
    for (Long64_t jentry=0; jentry<nEntries; jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -59,11 +59,14 @@ void ProtonMC::Loop()
       for (int iPart=0; iPart<nParticlesInEvent; iPart++) {
          int IsPrimary = process_primary[iPart];
          int PDG = pdg[iPart];
-         if (IsPrimary == 1 && PDG == 2212 && process == 10) {
+	 double protonFinalPositionX = EndPointx[iPart];
+	 double protonFinalPositionY = EndPointy[iPart];
+	 double protonFinalPositionZ = EndPointz[iPart];
+         if (IsPrimary == 1 && PDG == 2212 && process == 10 && protonFinalPositionX >= x0 && protonFinalPositionX <= xF && protonFinalPositionY >= y0 && protonFinalPositionY <= yF && protonFinalPositionZ >= z0 && protonFinalPositionZ <= zF) {
             nEventsProtonInelastic++;
          }     
 
-         if (IsPrimary == 1 && PDG == 2212 && process == 3) {
+         if (IsPrimary == 1 && PDG == 2212 && process == 3 && protonFinalPositionX >= x0 && protonFinalPositionX <= xF && protonFinalPositionY >= y0 && protonFinalPositionY <= yF && protonFinalPositionZ >= z0 && protonFinalPositionZ <= zF) {
             nEventsHadronicProton++;
          }
          
