@@ -70,14 +70,11 @@ void ProtonMC::Loop()
             nEventsHadronicProton++;
          }
 
-	 if (IsPrimary == 1 && PDG == 2212 && (process == 3 || process == 10) && (protonFinalPositionX <= x0 ||   protonFinalPositionX >= xF || protonFinalPositionY <= y0 || protonFinalPositionY >= yF || protonFinalPositionZ <= z0 || protonFinalPositionZ >= zF)) {
+	 if (IsPrimary == 1 && PDG == 2212 && (process == 3 || process == 10) && (protonFinalPositionX <= x0 || protonFinalPositionX >= xF || protonFinalPositionY <= y0 || protonFinalPositionY >= yF || protonFinalPositionZ <= z0 || protonFinalPositionZ >= zF)) {
 	    std::cout<<"|-----------------|"<<std::endl;
-            std::cout<<"x0 = "<<x0<<std::endl;
-	    std::cout<<"xF = "<<xF<<std::endl;
-	    std::cout<<"y0 = "<<y0<<std::endl;
-	    std::cout<<"yF = "<<yF<<std::endl;
-	    std::cout<<"z0 = "<<z0<<std::endl;
-	    std::cout<<"zF = "<<zF<<std::endl;
+	    std::cout<<"xF = "<<protonFinalPositionX<<std::endl;
+	    std::cout<<"yF = "<<protonFinalPositionY<<std::endl;
+	    std::cout<<"zF = "<<protonFinalPositionZ<<std::endl;
 	    std::cout<<"|-----------------|"<<std::endl;
          }
          
