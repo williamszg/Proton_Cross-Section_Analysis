@@ -22,7 +22,7 @@ void ProtonMC::Loop()
    //---------------------------------------------------------------|
    //-----                 Defining Counters                   -----|
    //---------------------------------------------------------------|
-   int nEntries = 50000;
+   int nEntries = nentries;
    int nProtonInelastic = 0;
    int nEventsHadronicProton = 0;
    int nEventsProtonInelastic = 0;
