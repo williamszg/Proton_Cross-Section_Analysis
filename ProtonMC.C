@@ -26,6 +26,7 @@ void ProtonMC::Loop()
    int nProtonInelastic = 0;
    int nEventsHadronicProton = 0;
    int nEventsProtonInelastic = 0;
+   int nTotalEvents = 0;
    //---------------------------------------------------------------|
    
    //---------------------------------------------------------------|
@@ -46,6 +47,13 @@ void ProtonMC::Loop()
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
+
+      //--- Counting Total Events ---|
+      nTotalEvents++;
+
+      //--- Outputting Every nEvents to the Screen ---|
+      if (nTotalEvents % 1000 == 0) {std::cout<<"Event = "<<nTotalEvents<<std::endl;}
+
 
       int nParticlesInEvent = geant_list_size;
       int process = Process[jentry];
